@@ -14,33 +14,51 @@ class Person {
 }
 
 class Employee extends Person {
-  #salary = 500;
-  constructor(firstName, lastName, age, birthDayDate, jobPosition) {
+  #salary;
+  constructor(firstName, lastName, age, birthDayDate, jobPosition, salary) {
     super(firstName, lastName, age, birthDayDate);
     this.jobPosition = jobPosition;
+    this.#salary = salary;
   }
   getYearSalary() {
     return this.#salary * 12;
   }
   celebrate() {
-    this.date = new Date(this.birthDayDate);
-    this.newDay = this.date.getDay();
-    if (this.newDay === 6 || this.newDay === 0)
-      return "Happy Birthday, let’s celebrate’";
+    if (isWeekend(this.birthDayDate)) return super.celebrate();
     else return "Happy Birthday, but I need to work";
   }
 }
 
-const person = new Person("ivan", "ivanov", 25, "1989-02-03");
+const isWeekend = (newDate) => {
+  const date = new Date(newDate);
+  const newDay = date.getDay();
+  return newDay === 6 || newDay === 0;
+};
+
+const person = new Person("Ivan", "Ivanov", 25, "1989-02-03");
 console.log(person);
 console.log(person.celebrate());
 
-const employee = new Employee("petr", "petrov", 30, "2022-02-12", "ingineer");
+const employee = new Employee(
+  "petr",
+  "petrov",
+  43,
+  "1978-23-11",
+  "ingineer",
+  500
+);
 console.log(employee);
 console.log(employee.getYearSalary());
 console.log(employee.celebrate());
 
-const employee1 = new Employee("Marta", "Super", 26, "2022-02-09", "mother");
+const employee1 = new Employee(
+  "Marta",
+  "Super",
+  26,
+  "1983-06-06",
+  "mother",
+  800
+);
 console.log(employee1);
 console.log(employee1.getYearSalary());
 console.log(employee1.celebrate());
