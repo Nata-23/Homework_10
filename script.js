@@ -24,18 +24,24 @@ class Employee extends Person {
     return this.#salary * 12;
   }
   celebrate() {
-    if (isWeekend(this.birthDayDate)) return super.celebrate();
+    const today = new Date();
+    const birthDate = new Date(this.birthDayDate);
+    const nowDate = new Date(
+      today.getFullYear(),
+      birthDate.getMonth(),
+      birthDate.getDate()
+    );
+    const nowDay = nowDate.getDay();
+    if (isWeekend(nowDay)) return super.celebrate();
     else return "Happy Birthday, but I need to work";
   }
 }
 
 const isWeekend = (newDate) => {
-  const date = new Date(newDate);
-  const newDay = date.getDay();
-  return newDay === 6 || newDay === 0;
+  return newDate === 6 || newDate === 0;
 };
 
-const person = new Person("Ivan", "Ivanov", 25, "1989-02-03");
+const person = new Person("Ivan", "Ivanov", 25, "1989-06-06");
 console.log(person);
 console.log(person.celebrate());
 
@@ -43,7 +49,7 @@ const employee = new Employee(
   "petr",
   "petrov",
   43,
-  "1978-23-11",
+  "1978-03-28",
   "ingineer",
   500
 );
@@ -55,7 +61,7 @@ const employee1 = new Employee(
   "Marta",
   "Super",
   26,
-  "1983-06-06",
+  "2008-11-12",
   "mother",
   800
 );
